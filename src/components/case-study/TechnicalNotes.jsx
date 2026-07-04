@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Figure from './Figure'
 
 function TechnicalNotes() {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -7,33 +6,23 @@ function TechnicalNotes() {
   const processSteps = [
     {
       id: 1,
-      image: '/images/cl-interior/process-1.png',
-      description: 'TODO: 等待设计截图确认文案'
+      label: 'REFERENCE BOARD',
+      image: '/images/cl-interior/process-reference.png'
     },
     {
       id: 2,
-      image: '/images/cl-interior/process-2.png',
-      description: 'TODO: 等待设计截图确认文案'
+      label: 'BLOCKOUT',
+      image: '/images/cl-interior/process-blockout.png'
     },
     {
       id: 3,
-      image: '/images/cl-interior/process-3.png',
-      description: 'TODO: 等待设计截图确认文案'
+      label: 'TOP-DOWN LAYOUT',
+      image: '/images/cl-interior/process-layout.png'
     },
     {
       id: 4,
-      image: '/images/cl-interior/process-4.png',
-      description: 'TODO: 等待设计截图确认文案'
-    },
-    {
-      id: 5,
-      image: '/images/cl-interior/process-5.png',
-      description: 'TODO: 等待设计截图确认文案'
-    },
-    {
-      id: 6,
-      image: '/images/cl-interior/process-6.png',
-      description: 'TODO: 等待设计截图确认文案'
+      label: 'MODULAR KIT',
+      image: '/images/cl-interior/process-modular.png'
     }
   ]
 
@@ -46,14 +35,10 @@ function TechnicalNotes() {
           onClick={() => setIsExpanded(!isExpanded)}
           className="w-full flex items-center justify-between bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)] hover:border-border-heavy transition-colors"
         >
-          <div className="flex items-center gap-[var(--item-gap)]">
-            <span className="font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-              PROCESS
-            </span>
-            <h3 className="font-heading font-bold text-section text-text-primary">
-              Technical Notes
-            </h3>
-          </div>
+          <h3 className="font-heading font-bold text-section text-text-primary flex items-center gap-[var(--item-gap)]">
+            Process
+            <span className="text-accent-gold">▸</span>
+          </h3>
 
           {/* 展开/收起图标 */}
           <svg
@@ -73,32 +58,26 @@ function TechnicalNotes() {
           </svg>
         </button>
 
-        {/* 展开内容 */}
+        {/* 展开内容 - 2×2 网格 */}
         {isExpanded && (
-          <div className="mt-[var(--card-gap)] grid grid-cols-3 gap-[var(--card-gap)]">
+          <div className="mt-[var(--card-gap)] grid grid-cols-2 gap-[var(--card-gap)]">
             {processSteps.map((step) => (
-              <div key={step.id} className="bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden">
-                {/* 图片 */}
-                <div className="relative aspect-[16/9]">
-                  <img
-                    src={step.image}
-                    alt={`Process step ${step.id}`}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none'
-                      const placeholder = document.createElement('div')
-                      placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                      placeholder.textContent = `Step ${step.id}`
-                      e.target.parentNode.appendChild(placeholder)
-                    }}
-                  />
-                </div>
-
-                {/* 说明 */}
-                <div className="p-[var(--content-gap)]">
-                  <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
-                    {step.description}
-                  </p>
+              <div key={step.id} className="relative aspect-[16/9] bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden">
+                <img
+                  src={step.image}
+                  alt={step.label}
+                  className="w-full h-full object-cover"
+                  onError={(e) => {
+                    e.target.style.display = 'none'
+                    const placeholder = document.createElement('div')
+                    placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
+                    placeholder.textContent = step.label
+                    e.target.parentNode.appendChild(placeholder)
+                  }}
+                />
+                {/* 标签覆盖在图片上 */}
+                <div className="absolute bottom-[var(--item-gap)] left-[var(--item-gap)] px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
+                  {step.label}
                 </div>
               </div>
             ))}

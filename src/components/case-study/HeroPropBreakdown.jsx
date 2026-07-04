@@ -1,20 +1,8 @@
 function HeroPropBreakdown() {
   const detailViews = [
-    {
-      id: 'wireframe',
-      label: 'WIREFRAME',
-      image: '/images/cl-interior/hero-prop-wireframe.png'
-    },
-    {
-      id: 'texture',
-      label: 'TEXTURE',
-      image: '/images/cl-interior/hero-prop-texture.png'
-    },
-    {
-      id: 'material',
-      label: 'MATERIAL',
-      image: '/images/cl-interior/hero-prop-material.png'
-    }
+    { id: 'wireframe', label: 'WIREFRAME', image: '/images/cl-interior/hero-prop-wireframe.png' },
+    { id: 'basecolor', label: 'BASE COLOR', image: '/images/cl-interior/hero-prop-basecolor.png' },
+    { id: 'detail', label: 'DETAIL', image: '/images/cl-interior/hero-prop-detail.png' }
   ]
 
   return (
@@ -26,13 +14,13 @@ function HeroPropBreakdown() {
           <div className="relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden bg-bg-card">
             <img
               src="/images/cl-interior/hero-prop-main.png"
-              alt="Hero prop main view"
+              alt="Scholar table hero prop"
               className="w-full h-full object-cover"
               onError={(e) => {
                 e.target.style.display = 'none'
                 const placeholder = document.createElement('div')
                 placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                placeholder.textContent = 'Hero Prop Main View'
+                placeholder.textContent = 'Scholar Table'
                 e.target.parentNode.appendChild(placeholder)
               }}
             />
@@ -55,9 +43,14 @@ function HeroPropBreakdown() {
                   e.target.parentNode.appendChild(placeholder)
                 }}
               />
-              {/* 标签 */}
-              <div className="absolute bottom-[var(--item-gap)] left-[var(--item-gap)] px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-                {view.label}
+              {/* 底部标签 */}
+              <div className="absolute bottom-[var(--item-gap)] left-[var(--item-gap)] flex flex-col gap-[4px]">
+                <span className="font-body font-normal text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-tertiary">
+                  SCHOLAR TABLE
+                </span>
+                <span className="font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
+                  {view.label}
+                </span>
               </div>
             </div>
           ))}

@@ -1,51 +1,56 @@
 import CardHeader from './CardHeader'
-import Figure from './Figure'
 
 function MaterialPipeline() {
-  // 彩色标签的配置
   const maskTypes = [
     {
       label: 'COLOR',
-      color: '#C9A227', // 金色
-      description: 'TODO: 等待设计截图确认文案',
-      detail: 'TODO: 等待设计截图确认文案'
+      color: '#C9A227',
+      line1: 'Orientation-based dust via VertexNormalWS;',
+      line2: 'varnish yellows where light once fell'
     },
     {
       label: 'HEIGHT MASK',
-      color: '#4A90E2', // 蓝色 /* 暂定值,待同步校对 */
-      description: 'TODO: 等待设计截图确认文案',
-      detail: 'TODO: 等待设计截图确认文案'
+      color: '#4A90E2',
+      line1: 'Height-based masking pools moisture low —',
+      line2: 'darker albedo, lower roughness'
     },
     {
       label: 'ROUGHNESS',
-      color: '#7ED321', // 绿色 /* 暂定值,待同步校对 */
-      description: 'TODO: 等待设计截图确认文案',
-      detail: 'TODO: 等待设计截图确认文案'
+      color: '#7ED321',
+      line1: 'Procedural breakup so wear reads under grazing',
+      line2: 'light, not just head-on'
     },
     {
       label: 'NORMAL',
-      color: '#BD10E0', // 紫色 /* 暂定值,待同步校对 */
-      description: 'TODO: 等待设计截图确认文案',
-      detail: 'TODO: 等待设计截图确认文案'
+      color: '#BD10E0',
+      line1: (
+        <>
+          Surface grime layered with <em>Blend-angle</em>
+        </>
+      ),
+      line2: (
+        <>
+          <em>corrected normals</em> to keep base detail intact
+        </>
+      )
     }
   ]
 
   const nodeGraphs = [
-    { id: 1, color: '#C9A227', image: '/images/cl-interior/material-node-1-color.png' },
-    { id: 2, color: '#4A90E2', image: '/images/cl-interior/material-node-2-height.png' },
-    { id: 3, color: '#7ED321', image: '/images/cl-interior/material-node-3-roughness.png' },
-    { id: 4, color: '#BD10E0', image: '/images/cl-interior/material-node-4-normal.png' }
+    { id: 1, color: '#808000', image: '/images/cl-interior/material-node-1-color.png' }, // 橄榄绿
+    { id: 2, color: '#4A90E2', image: '/images/cl-interior/material-node-2-height.png' }, // 蓝色
+    { id: 3, color: '#7ED321', image: '/images/cl-interior/material-node-3-roughness.png' }, // 绿色
+    { id: 4, color: '#BD10E0', image: '/images/cl-interior/material-node-4-normal.png' } // 紫色
   ]
 
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
       <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
 
-        {/* 左右两列布局 */}
         <div className="flex gap-[var(--card-gap)]">
 
-          {/* 左卡 - How It's Made */}
-          <div className="flex-1 flex flex-col gap-[var(--content-gap)] bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)]">
+          {/* 左卡 - 约 60% */}
+          <div className="flex-[3] flex flex-col gap-[var(--content-gap)] bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)]">
 
             <CardHeader letter="A" label="MF_CHINESEWEATHERING" />
 
@@ -54,10 +59,10 @@ function MaterialPipeline() {
             </h3>
 
             <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
-              TODO: 等待设计截图确认简介文案
+              A custom UE5 Material Function layering yellowing, dust, moisture and roughness.
             </p>
 
-            {/* 四个彩色标签卡 */}
+            {/* 四个彩色标签卡 2×2 */}
             <div className="grid grid-cols-2 gap-[var(--item-gap)]">
               {maskTypes.map((mask) => (
                 <div
@@ -65,7 +70,6 @@ function MaterialPipeline() {
                   className="bg-bg-card-darker rounded-[var(--radius-small)] border p-[var(--item-gap)]"
                   style={{ borderColor: mask.color }}
                 >
-                  {/* 标签 */}
                   <div
                     className="inline-block px-[12px] py-[4px] rounded-full mb-[var(--tight-gap)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-normal)]"
                     style={{
@@ -78,25 +82,23 @@ function MaterialPipeline() {
                     {mask.label}
                   </div>
 
-                  {/* 说明文字 */}
                   <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)] mb-[4px]">
-                    {mask.description}
+                    {mask.line1}
                   </p>
                   <p className="font-body text-body text-text-tertiary leading-[var(--line-height-normal)]">
-                    {mask.detail}
+                    {mask.line2}
                   </p>
                 </div>
               ))}
             </div>
 
-            {/* 底部文案 */}
             <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)] italic">
               All masks exposed as per-asset parameters — one function drives decay across all 40 assets.
             </p>
           </div>
 
-          {/* 右侧 - 节点图 + BEFORE/AFTER */}
-          <div className="flex-1 flex flex-col gap-[var(--item-gap)]">
+          {/* 右侧 - 约 40% */}
+          <div className="flex-[2] flex flex-col gap-[var(--item-gap)]">
 
             {/* 四条节点图 */}
             {nodeGraphs.map((node) => (
@@ -104,13 +106,7 @@ function MaterialPipeline() {
                 key={node.id}
                 className="bg-bg-card rounded-[var(--radius-small)] border border-border overflow-hidden"
               >
-                {/* 彩色顶栏 */}
-                <div
-                  className="h-[8px]"
-                  style={{ backgroundColor: node.color }}
-                />
-
-                {/* 节点图图片 */}
+                <div className="h-[8px]" style={{ backgroundColor: node.color }} />
                 <img
                   src={node.image}
                   alt={`Node graph ${node.id}`}
@@ -128,17 +124,23 @@ function MaterialPipeline() {
 
             {/* BEFORE/AFTER 对比卡 */}
             <div className="bg-bg-card rounded-[var(--radius-card)] border-2 border-accent-gold p-[var(--item-gap)]">
-              <div className="flex items-center gap-[var(--tight-gap)] mb-[var(--tight-gap)]">
+              <div className="mb-[var(--tight-gap)]">
                 <span className="font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
                   DETAIL — BEFORE/AFTER
                 </span>
               </div>
 
-              <Figure
-                src="/images/cl-interior/m4-before-after.png"
-                aspectRatio="16/9"
-                mainCaption="Material weathering comparison"
-                subCaption="Left: base material · Right: procedural decay applied"
+              <img
+                src="/images/cl-interior/material-before-after.png"
+                alt="Material weathering comparison"
+                className="w-full h-auto rounded-[var(--radius-mini)]"
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                  const placeholder = document.createElement('div')
+                  placeholder.className = 'w-full h-[200px] bg-bg-card-darker rounded-[var(--radius-mini)] flex items-center justify-center text-text-tertiary text-body'
+                  placeholder.textContent = 'Before/After Comparison'
+                  e.target.parentNode.appendChild(placeholder)
+                }}
               />
             </div>
           </div>
