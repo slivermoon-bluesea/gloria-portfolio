@@ -6,27 +6,33 @@ function TechnicalNotes() {
 
   const processSteps = [
     {
-      id: 'reference',
-      title: 'Reference Board',
-      image: '/images/cl-interior/m8-reference.png',
+      id: 1,
+      image: '/images/cl-interior/process-1.png',
       description: 'TODO: 等待设计截图确认文案'
     },
     {
-      id: 'blockout',
-      title: 'Blockout',
-      image: '/images/cl-interior/m8-blockout.png',
+      id: 2,
+      image: '/images/cl-interior/process-2.png',
       description: 'TODO: 等待设计截图确认文案'
     },
     {
-      id: 'layout',
-      title: 'Top-down Layout',
-      image: '/images/cl-interior/m8-layout.png',
+      id: 3,
+      image: '/images/cl-interior/process-3.png',
       description: 'TODO: 等待设计截图确认文案'
     },
     {
-      id: 'modular',
-      title: 'Modular Kit Breakdown',
-      image: '/images/cl-interior/m8-modular.png',
+      id: 4,
+      image: '/images/cl-interior/process-4.png',
+      description: 'TODO: 等待设计截图确认文案'
+    },
+    {
+      id: 5,
+      image: '/images/cl-interior/process-5.png',
+      description: 'TODO: 等待设计截图确认文案'
+    },
+    {
+      id: 6,
+      image: '/images/cl-interior/process-6.png',
       description: 'TODO: 等待设计截图确认文案'
     }
   ]
@@ -69,30 +75,27 @@ function TechnicalNotes() {
 
         {/* 展开内容 */}
         {isExpanded && (
-          <div className="mt-[var(--card-gap)] grid grid-cols-2 gap-[var(--card-gap)]">
+          <div className="mt-[var(--card-gap)] grid grid-cols-3 gap-[var(--card-gap)]">
             {processSteps.map((step) => (
               <div key={step.id} className="bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden">
                 {/* 图片 */}
                 <div className="relative aspect-[16/9]">
                   <img
                     src={step.image}
-                    alt={step.title}
+                    alt={`Process step ${step.id}`}
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.target.style.display = 'none'
                       const placeholder = document.createElement('div')
                       placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                      placeholder.textContent = step.title
+                      placeholder.textContent = `Step ${step.id}`
                       e.target.parentNode.appendChild(placeholder)
                     }}
                   />
                 </div>
 
-                {/* 标题和说明 */}
+                {/* 说明 */}
                 <div className="p-[var(--content-gap)]">
-                  <h4 className="font-heading font-bold text-subtitle text-text-primary mb-[var(--text-gap)]">
-                    {step.title}
-                  </h4>
                   <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
                     {step.description}
                   </p>

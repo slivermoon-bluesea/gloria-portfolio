@@ -31,10 +31,10 @@ function MaterialPipeline() {
   ]
 
   const nodeGraphs = [
-    { id: 1, color: '#C9A227', image: '/images/cl-interior/m4-node-1-color.png' },
-    { id: 2, color: '#4A90E2', image: '/images/cl-interior/m4-node-2-height.png' },
-    { id: 3, color: '#7ED321', image: '/images/cl-interior/m4-node-3-roughness.png' },
-    { id: 4, color: '#BD10E0', image: '/images/cl-interior/m4-node-4-normal.png' }
+    { id: 1, color: '#C9A227', image: '/images/cl-interior/material-node-1-color.png' },
+    { id: 2, color: '#4A90E2', image: '/images/cl-interior/material-node-2-height.png' },
+    { id: 3, color: '#7ED321', image: '/images/cl-interior/material-node-3-roughness.png' },
+    { id: 4, color: '#BD10E0', image: '/images/cl-interior/material-node-4-normal.png' }
   ]
 
   return (
