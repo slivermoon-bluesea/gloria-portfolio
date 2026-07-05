@@ -1,7 +1,14 @@
+import { useState, useRef } from 'react'
 import SectionHeader from './SectionHeader'
 import CardHeader from './CardHeader'
 
 function MaterialPipeline() {
+  const [scale, setScale] = useState(1)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const [lastPos, setLastPos] = useState({ x: 0, y: 0 })
+  const containerRef = useRef(null)
+
   const maskTypes = [
     {
       label: 'COLOR',
@@ -11,19 +18,19 @@ function MaterialPipeline() {
     },
     {
       label: 'HEIGHT MASK',
-      color: '#4A90E2',
+      color: '#4A8CFF',
       line1: 'Height-based masking pools moisture low —',
       line2: 'darker albedo, lower roughness'
     },
     {
       label: 'ROUGHNESS',
-      color: '#7ED321',
+      color: '#38C72E',
       line1: 'Procedural breakup so wear reads under grazing',
       line2: 'light, not just head-on'
     },
     {
       label: 'NORMAL',
-      color: '#BD10E0',
+      color: '#B435A9',
       line1: (
         <>
           Surface grime layered with <em>Blend-angle</em>
@@ -37,12 +44,41 @@ function MaterialPipeline() {
     }
   ]
 
-  const nodeGraphs = [
-    { id: 1, color: '#808000', image: '/images/cl-interior/material-node-1-color.png' },
-    { id: 2, color: '#4A90E2', image: '/images/cl-interior/material-node-2-height.png' },
-    { id: 3, color: '#7ED321', image: '/images/cl-interior/material-node-3-roughness.png' },
-    { id: 4, color: '#BD10E0', image: '/images/cl-interior/material-node-4-normal.png' }
-  ]
+  const handleMouseDown = (e) => {
+    setIsDragging(true)
+    setLastPos({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return
+    const dx = e.clientX - lastPos.x
+    const dy = e.clientY - lastPos.y
+    setPosition(prev => ({ x: prev.x + dx, y: prev.y + dy }))
+    setLastPos({ x: e.clientX, y: e.clientY })
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleWheel = (e) => {
+    e.preventDefault()
+    if (!containerRef.current) return
+
+    const rect = containerRef.current.getBoundingClientRect()
+    const cx = e.clientX - rect.left
+    const cy = e.clientY - rect.top
+
+    const delta = e.deltaY < 0 ? 1.1 : 1 / 1.1
+    const newScale = Math.max(1, Math.min(4, scale * delta))
+
+    const ratio = newScale / scale
+    setPosition(prev => ({
+      x: cx - (cx - prev.x) * ratio,
+      y: cy - (cy - prev.y) * ratio
+    }))
+    setScale(newScale)
+  }
 
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
@@ -72,27 +108,39 @@ function MaterialPipeline() {
               A custom UE5 Material Function layering yellowing, dust, moisture and roughness.
             </p>
 
-            {/* 四个彩色标签卡 - 竖向堆叠 */}
+            {/* 四个彩色标签卡 - 竖向堆叠，尺寸 415×118 */}
             <div className="flex flex-col gap-[var(--item-gap)]">
               {maskTypes.map((mask) => (
                 <div
                   key={mask.label}
-                  className="bg-bg-card-darker rounded-[var(--radius-small)] border p-[var(--item-gap)]"
-                  style={{ borderColor: mask.color }}
+                  className="bg-bg-card-darker rounded-[var(--radius-small)] p-[var(--item-gap)] flex flex-col gap-[var(--text-gap)]"
+                  style={{
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: '#333333'
+                  }}
                 >
-                  <div
-                    className="inline-block px-[12px] py-[4px] rounded-full mb-[var(--tight-gap)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-normal)]"
-                    style={{
-                      borderWidth: '1px',
-                      borderStyle: 'solid',
-                      borderColor: mask.color,
-                      color: mask.color
-                    }}
-                  >
-                    {mask.label}
+                  {/* 顶部大按钮横条 351×25.75，水平居中 */}
+                  <div className="flex justify-center">
+                    <div
+                      className="flex items-center justify-center font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-normal)]"
+                      style={{
+                        width: '351px',
+                        height: '25.75px',
+                        borderRadius: '13px',
+                        borderWidth: '1px',
+                        borderStyle: 'solid',
+                        borderColor: mask.color,
+                        color: mask.color,
+                        backgroundColor: 'transparent'
+                      }}
+                    >
+                      {mask.label}
+                    </div>
                   </div>
 
-                  <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)] mb-[4px]">
+                  {/* 描述文字 - 左对齐 */}
+                  <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
                     {mask.line1}
                   </p>
                   <p className="font-body text-body text-text-tertiary leading-[var(--line-height-normal)]">
@@ -110,48 +158,54 @@ function MaterialPipeline() {
           {/* 右侧 - 约 40% */}
           <div className="flex-[2] flex flex-col gap-[var(--item-gap)]">
 
-            {/* 四条节点图 */}
-            {nodeGraphs.map((node) => (
-              <div
-                key={node.id}
-                className="bg-bg-card rounded-[var(--radius-small)] border border-border overflow-hidden flex-1"
-              >
-                <div className="h-[8px]" style={{ backgroundColor: node.color }} />
-                <img
-                  src={node.image}
-                  alt={`Node graph ${node.id}`}
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none'
-                    const placeholder = document.createElement('div')
-                    placeholder.className = 'w-full h-full bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                    placeholder.textContent = `Node Graph ${node.id}`
-                    e.target.parentNode.appendChild(placeholder)
-                  }}
-                />
-              </div>
-            ))}
-
-            {/* BEFORE/AFTER 对比卡 */}
-            <div className="bg-bg-card rounded-[var(--radius-card)] border-2 border-accent-gold p-[var(--item-gap)]">
-              <div className="mb-[var(--tight-gap)]">
-                <span className="font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-                  DETAIL — BEFORE/AFTER
-                </span>
-              </div>
-
+            {/* 单张节点图 - pan/zoom 交互 */}
+            <div
+              ref={containerRef}
+              className="relative bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden flex-1"
+              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onWheel={handleWheel}
+            >
               <img
-                src="/images/cl-interior/material-before-after.png"
-                alt="Material weathering comparison"
-                className="w-full h-auto rounded-[var(--radius-mini)]"
+                src="/images/cl-interior/material-node-graph.png"
+                alt="Material node graph"
+                className="absolute top-0 left-0 w-full h-auto select-none"
+                style={{
+                  transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+                  transformOrigin: '0 0'
+                }}
+                draggable={false}
                 onError={(e) => {
                   e.target.style.display = 'none'
                   const placeholder = document.createElement('div')
-                  placeholder.className = 'w-full h-[200px] bg-bg-card-darker rounded-[var(--radius-mini)] flex items-center justify-center text-text-tertiary text-body'
-                  placeholder.textContent = 'Before/After Comparison'
+                  placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
+                  placeholder.textContent = 'Node Graph'
                   e.target.parentNode.appendChild(placeholder)
                 }}
               />
+            </div>
+
+            {/* BEFORE/AFTER 静态图片模块 401×274 */}
+            <div className="relative rounded-[12px] overflow-hidden" style={{ width: '401px', height: '274px', borderWidth: '1px', borderStyle: 'solid', borderColor: '#C9A227' }}>
+              <img
+                src="/images/cl-interior/material-before-after.png"
+                alt="Material weathering comparison"
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.style.display = 'none'
+                  const placeholder = document.createElement('div')
+                  placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
+                  placeholder.textContent = 'Before/After'
+                  e.target.parentNode.appendChild(placeholder)
+                }}
+              />
+              {/* 金色标签右下角 */}
+              <div className="absolute bottom-[var(--text-gap)] right-[var(--text-gap)] px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
+                DETAIL — BEFORE/AFTER
+              </div>
             </div>
           </div>
 
