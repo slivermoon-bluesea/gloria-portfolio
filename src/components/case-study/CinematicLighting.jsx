@@ -24,7 +24,7 @@ function CinematicLighting() {
     { label: 'SHADOWS', value: 'Virtual Shadow Maps' },
     { label: 'FOG', value: 'Exponential + Volumetric' },
     { label: 'KEY TEMP', value: '4200K' },
-    { label: 'RENDER', value: 'MRQ' }
+    { label: 'RENDER', value: 'Movie Render Queue' }
   ]
 
   // 预加载所有图片
@@ -72,7 +72,7 @@ function CinematicLighting() {
           {/* 右侧 - Lighting & Mood 卡片 (约 1/3) */}
           <div className="flex-1 bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)] flex flex-col gap-[var(--content-gap)]">
 
-            <h3 className="font-heading font-bold text-subtitle text-text-primary">
+            <h3 className="font-bold text-text-primary" style={{ fontFamily: 'Playfair Display', fontSize: '28px' }}>
               Lighting & Mood
             </h3>
 
@@ -82,11 +82,12 @@ function CinematicLighting() {
                 <button
                   key={pass.id}
                   onClick={() => setActivePass(pass.id)}
-                  className={`px-[12px] py-[6px] rounded-[var(--radius-mini)] font-body font-medium text-caption uppercase tracking-[var(--letter-spacing-normal)] transition-colors whitespace-nowrap ${
+                  className={`px-[12px] py-[6px] rounded-[var(--radius-mini)] uppercase tracking-[var(--letter-spacing-normal)] transition-colors whitespace-nowrap ${
                     activePass === pass.id
                       ? 'bg-accent-gold text-bg-primary'
                       : 'bg-bg-card-darker text-text-tertiary border border-border hover:border-border-heavy'
                   }`}
+                  style={{ fontFamily: 'Inter', fontWeight: 500, fontSize: '13px' }}
                 >
                   {pass.label}
                 </button>
@@ -119,13 +120,13 @@ function CinematicLighting() {
 
             {/* Specs 区 - 钉在底部 */}
             <div className="mt-auto pt-[var(--content-gap)] border-t" style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}>
-              <div className="flex flex-col gap-[12px]">
+              <div className="grid md:grid-cols-[auto_1fr] grid-cols-1 gap-x-[24px] gap-y-[12px]">
                 {specs.map((spec) => (
-                  <div key={spec.label} className="flex justify-between">
-                    <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)]" style={{ color: '#C9A227' }}>
+                  <div key={spec.label} className="contents">
+                    <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)]" style={{ color: 'rgba(255, 255, 255, 0.45)' }}>
                       {spec.label}
                     </span>
-                    <span className="font-body text-caption" style={{ color: '#B8B5AE' }}>
+                    <span className="font-body text-caption justify-self-end" style={{ color: '#B8B5AE' }}>
                       {spec.value}
                     </span>
                   </div>

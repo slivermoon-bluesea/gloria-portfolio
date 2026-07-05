@@ -14,65 +14,16 @@ function SceneConstruction() {
           />
         </div>
 
-        {/* 三段斜切拼接容器 */}
-        <div className="relative w-full aspect-[21/9] bg-bg-card rounded-[var(--radius-card)] overflow-hidden mb-[var(--content-gap)]">
-
-          {/* FINAL 段 - 左侧 */}
-          <div className="absolute inset-0 w-1/3" style={{ clipPath: 'polygon(0 0, 100% 0, 95% 100%, 0 100%)' }}>
-            <img
-              src="/images/cl-interior/scene-construction-final.png"
-              alt="Final render"
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.style.display = 'none'
-                const placeholder = document.createElement('div')
-                placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                placeholder.textContent = 'Final'
-                e.target.parentNode.appendChild(placeholder)
-              }}
-            />
-            <div className="absolute top-[var(--item-gap)] left-[var(--item-gap)] px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-              FINAL
-            </div>
-          </div>
-
-          {/* SET DRESS 段 - 中间 */}
-          <div className="absolute inset-0 left-1/3 w-1/3" style={{ clipPath: 'polygon(5% 0, 100% 0, 95% 100%, 0 100%)' }}>
-            <img
-              src="/images/cl-interior/scene-construction-setdress.png"
-              alt="Set dress"
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.style.display = 'none'
-                const placeholder = document.createElement('div')
-                placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                placeholder.textContent = 'Set Dress'
-                e.target.parentNode.appendChild(placeholder)
-              }}
-            />
-            <div className="absolute top-[var(--item-gap)] left-1/2 -translate-x-1/2 px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-primary">
-              SET DRESS
-            </div>
-          </div>
-
-          {/* WIREFRAME 段 - 右侧 */}
-          <div className="absolute inset-0 left-2/3 w-1/3" style={{ clipPath: 'polygon(5% 0, 100% 0, 100% 100%, 0 100%)' }}>
-            <img
-              src="/images/cl-interior/scene-construction-wireframe.png"
-              alt="Wireframe"
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.style.display = 'none'
-                const placeholder = document.createElement('div')
-                placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                placeholder.textContent = 'Wireframe'
-                e.target.parentNode.appendChild(placeholder)
-              }}
-            />
-            <div className="absolute top-[var(--item-gap)] right-[var(--item-gap)] px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-primary">
-              WIREFRAME
-            </div>
-          </div>
+        {/* 单张完整图片 */}
+        <div className="relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden bg-bg-card mb-[var(--content-gap)]">
+          <img
+            src="/images/cl-interior/scene-construction.png"
+            alt="Scene construction - wireframe, set dress, and final render"
+            className="w-full h-full object-cover"
+            onError={(e) => {
+              e.target.style.display = 'none'
+            }}
+          />
         </div>
 
         {/* 底部两行说明文字 */}
