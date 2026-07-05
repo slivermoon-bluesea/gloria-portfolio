@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import SectionHeader from './SectionHeader'
 import CardHeader from './CardHeader'
 
@@ -14,7 +14,11 @@ function MaterialPipeline() {
     {
       label: 'COLOR',
       color: '#C9A227',
-      line1: 'Orientation-based dust via VertexNormalWS;',
+      line1: (
+        <>
+          Orientation-based dust via <strong><em>VertexNormalWS</em></strong>;
+        </>
+      ),
       line2: 'varnish yellows where light once fell'
     },
     {
@@ -34,12 +38,12 @@ function MaterialPipeline() {
       color: '#B435A9',
       line1: (
         <>
-          Surface grime layered with <em>Blend-angle</em>
+          Surface grime layered with <strong><em>Blend-angle</em></strong>
         </>
       ),
       line2: (
         <>
-          <em>corrected normals</em> to keep base detail intact
+          <strong><em>corrected normals</em></strong> to keep base detail intact
         </>
       )
     }
@@ -63,9 +67,10 @@ function MaterialPipeline() {
     setIsDragging(false)
   }
 
-  const handleWheel = (e) => {
+  const handleWheel = useCallback((e) => {
     if (!isHovering) return
     e.preventDefault()
+    e.stopPropagation()
     if (!containerRef.current) return
 
     const rect = containerRef.current.getBoundingClientRect()
@@ -81,7 +86,24 @@ function MaterialPipeline() {
       y: cy - (cy - prev.y) * ratio
     }))
     setScale(newScale)
-  }
+  }, [isHovering, scale])
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const handleWheelPassive = (e) => {
+      if (isHovering) {
+        e.preventDefault()
+      }
+    }
+
+    container.addEventListener('wheel', handleWheelPassive, { passive: false })
+
+    return () => {
+      container.removeEventListener('wheel', handleWheelPassive)
+    }
+  }, [isHovering])
 
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
@@ -98,71 +120,75 @@ function MaterialPipeline() {
 
         <div className="flex gap-[var(--card-gap)]">
 
-          {/* 左卡 - 固定宽度 491px */}
-          <div className="w-[491px] flex flex-col gap-[var(--content-gap)] bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)]">
+          {/* 左卡 - 固定 491×811 */}
+          <div className="bg-bg-card rounded-[var(--radius-card)] border border-border p-[32px]" style={{ width: '491px', height: '811px' }}>
 
             <CardHeader letter="A" label="MF_CHINESEWEATHERING" />
 
-            <h3 className="font-heading font-bold text-card text-text-primary">
+            <h3 className="font-heading font-bold text-card text-text-primary mt-[16px]">
               How It's Made
             </h3>
 
-            <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
+            <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)] mt-[16px]">
               A custom UE5 Material Function layering yellowing, dust, moisture and roughness.
             </p>
 
-            {/* 四个彩色标签卡 - 竖向堆叠，每个 415×118，背景 #1A1A1A */}
-            <div className="flex flex-col gap-[var(--item-gap)]">
+            {/* 四个彩色标签卡 - 每个 415×118，间距 16px */}
+            <div className="flex flex-col gap-[16px] mt-[16px]">
               {maskTypes.map((mask) => (
                 <div
                   key={mask.label}
-                  className="w-[415px] h-[118px] rounded-[var(--radius-small)] p-[var(--item-gap)] flex flex-col gap-[var(--text-gap)]"
+                  className="rounded-[20px] px-[32px] py-[24px] flex flex-col gap-[12px]"
                   style={{
+                    width: '415px',
+                    height: '118px',
                     backgroundColor: '#1A1A1A',
                     borderWidth: '1px',
                     borderStyle: 'solid',
                     borderColor: '#333333'
                   }}
                 >
-                  {/* 顶部大按钮横条 351×25.75，水平居中 */}
-                  <div className="flex justify-center">
-                    <div
-                      className="flex items-center justify-center font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-normal)]"
-                      style={{
-                        width: '351px',
-                        height: '25.75px',
-                        borderRadius: '13px',
-                        borderWidth: '1px',
-                        borderStyle: 'solid',
-                        borderColor: mask.color,
-                        color: mask.color,
-                        backgroundColor: 'transparent'
-                      }}
-                    >
-                      {mask.label}
-                    </div>
+                  {/* 顶部大按钮横条，几乎占满宽度 */}
+                  <div
+                    className="flex items-center justify-center font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-normal)]"
+                    style={{
+                      height: '25.75px',
+                      borderRadius: '13px',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: mask.color,
+                      color: mask.color,
+                      backgroundColor: 'transparent'
+                    }}
+                  >
+                    {mask.label}
                   </div>
 
-                  {/* 描述文字 - 左对齐 */}
-                  <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
-                    {mask.line1}
-                  </p>
-                  <p className="font-body text-body text-text-tertiary leading-[var(--line-height-normal)]">
-                    {mask.line2}
-                  </p>
+                  {/* 描述文字区域 - 固定尺寸 351×50，两行颜色相同 */}
+                  <div className="flex flex-col gap-[4px]" style={{ width: '351px', height: '50px' }}>
+                    <p className="font-body text-body leading-[var(--line-height-normal)]" style={{ color: '#B8B5AE' }}>
+                      {mask.line1}
+                    </p>
+                    <p className="font-body text-body leading-[var(--line-height-normal)]" style={{ color: '#B8B5AE' }}>
+                      {mask.line2}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
 
-            <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)] italic">
-              All masks exposed as per-asset parameters — one function drives decay across all 40 assets.
-            </p>
+            {/* 底部文案区域 - 固定 415×49 */}
+            <div className="mt-[16px]" style={{ width: '415px', height: '49px' }}>
+              <p className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
+                All masks exposed as per-asset parameters — one function drives decay across all 40 assets.
+              </p>
+            </div>
           </div>
 
-          {/* 右侧 - flex-1 填充剩余空间 */}
-          <div className="flex-1 flex flex-col gap-[var(--item-gap)]">
+          {/* 右侧 - 固定 781×811，相对定位容器 */}
+          <div className="relative" style={{ width: '781px', height: '811px' }}>
 
-            {/* 单张节点图 - 固定容器 781×599，pan/zoom 交互 */}
+            {/* 单张节点图 - 781×599，pan/zoom 交互 */}
             <div
               ref={containerRef}
               className="relative bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden"
@@ -190,30 +216,22 @@ function MaterialPipeline() {
                   e.target.style.display = 'none'
                   const placeholder = document.createElement('div')
                   placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                  placeholder.textContent = 'Node Graph (temporary placeholder - use test image)'
+                  placeholder.textContent = 'Node Graph (use test image to verify interaction)'
                   e.target.parentNode.appendChild(placeholder)
                 }}
               />
             </div>
 
-            {/* BEFORE/AFTER 静态图片模块 401×274，右对齐 */}
-            <div className="ml-auto relative rounded-[12px] overflow-hidden" style={{ width: '401px', height: '274px', borderWidth: '1px', borderStyle: 'solid', borderColor: '#C9A227' }}>
+            {/* BEFORE/AFTER 静态图片模块 401×274，绝对定位右下角，无边框 */}
+            <div className="absolute bottom-0 right-0 rounded-[12px] overflow-hidden" style={{ width: '401px', height: '274px' }}>
               <img
                 src="/images/cl-interior/material-before-after.png"
                 alt="Material weathering comparison"
                 className="w-full h-full object-cover"
                 onError={(e) => {
                   e.target.style.display = 'none'
-                  const placeholder = document.createElement('div')
-                  placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                  placeholder.textContent = 'Before/After'
-                  e.target.parentNode.appendChild(placeholder)
                 }}
               />
-              {/* 金色标签右下角 */}
-              <div className="absolute bottom-[var(--text-gap)] right-[var(--text-gap)] px-[12px] py-[6px] bg-bg-primary/80 rounded-[var(--radius-mini)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-                DETAIL — BEFORE/AFTER
-              </div>
             </div>
           </div>
 
