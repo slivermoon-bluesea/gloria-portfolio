@@ -18,6 +18,15 @@ function CinematicLighting() {
     { id: 'final', number: '04', text: 'Per-shot exposure & white balance tuned via MRQ' }
   ]
 
+  const specs = [
+    { label: 'LIGHT COUNT', value: '1 key + 3 fill + sky' },
+    { label: 'GI', value: 'Lumen' },
+    { label: 'SHADOWS', value: 'Virtual Shadow Maps' },
+    { label: 'FOG', value: 'Exponential + Volumetric' },
+    { label: 'KEY TEMP', value: '4200K' },
+    { label: 'RENDER', value: 'MRQ' }
+  ]
+
   // 预加载所有图片
   useEffect(() => {
     ['key', 'bounce', 'volumetrics', 'final'].forEach(pass => {
@@ -106,6 +115,22 @@ function CinematicLighting() {
                   </p>
                 </div>
               ))}
+            </div>
+
+            {/* Specs 区 - 钉在底部 */}
+            <div className="mt-auto pt-[var(--content-gap)] border-t" style={{ borderColor: 'rgba(255, 255, 255, 0.08)' }}>
+              <div className="flex flex-col gap-[12px]">
+                {specs.map((spec) => (
+                  <div key={spec.label} className="flex justify-between">
+                    <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)]" style={{ color: '#C9A227' }}>
+                      {spec.label}
+                    </span>
+                    <span className="font-body text-caption" style={{ color: '#B8B5AE' }}>
+                      {spec.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

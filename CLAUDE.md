@@ -80,7 +80,7 @@ src/
 2. M2 Project Overview(A/B 卡 + C 卡/图片卡)
 3. M3 Final Frames(1 全宽 + 2 并列)
 4. M4 Material & Texture Pipeline(左文右节点图 + BEFORE/AFTER 小卡)
-5. M5 Cinematic Lighting(before/after 滑块 + pass 切换标签,交互)
+5. M5 Cinematic Lighting(pass toggle 切图 crossfade + note 联动 + 底部 specs,交互;旧 slider 方案已弃)
 6. M6 Scene Construction(FINAL / SET DRESS / WIREFRAME 斜切拼图)
 7. M7 Hero Prop Breakdown(大图 + 3 张状态卡)
 8. M8 Process(默认折叠)+ Footer,然后整页对照 Figma 自查

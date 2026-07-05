@@ -42,6 +42,9 @@
   - 其余 note = opacity 0.4(糊到认不出才回调,上限 0.45),transition 0.2s 与图片 crossfade 同步
   - 保持白字,整条不变金(金留给 accent 指向性)
 - note 文案已核对为分阶段 build-up 描述,与 pass 一一对应成立
+- 底部 specs 区(钉卡片底):卡片 flex-col,notes 之后 margin-top:auto 推 specs 到底;specs 顶部 1px rgba(255,255,255,0.08) 细分隔线
+  - 2 列 key-value 小字:label 金色 #C9A227 大写字距大(同 toggle 风格),value 灰白 #B8B5AE
+  - LIGHT COUNT = 1 key + 3 fill + sky / GI = Lumen / SHADOWS = Virtual Shadow Maps / FOG = Exponential + Volumetric / KEY TEMP = 4200K / RENDER = MRQ(值来自 UE5 实测)
 
 ## UE5 灯光 pass 拍摄步骤(Annie 自己操作)
 1. 用出 final 的 CineCameraActor,Pilot 后全程不动
