@@ -7,6 +7,7 @@ function MaterialPipeline() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isDragging, setIsDragging] = useState(false)
   const [lastPos, setLastPos] = useState({ x: 0, y: 0 })
+  const [isHovering, setIsHovering] = useState(false)
   const containerRef = useRef(null)
 
   const maskTypes = [
@@ -45,12 +46,13 @@ function MaterialPipeline() {
   ]
 
   const handleMouseDown = (e) => {
+    if (!isHovering) return
     setIsDragging(true)
     setLastPos({ x: e.clientX, y: e.clientY })
   }
 
   const handleMouseMove = (e) => {
-    if (!isDragging) return
+    if (!isDragging || !isHovering) return
     const dx = e.clientX - lastPos.x
     const dy = e.clientY - lastPos.y
     setPosition(prev => ({ x: prev.x + dx, y: prev.y + dy }))
@@ -62,6 +64,7 @@ function MaterialPipeline() {
   }
 
   const handleWheel = (e) => {
+    if (!isHovering) return
     e.preventDefault()
     if (!containerRef.current) return
 
@@ -95,7 +98,7 @@ function MaterialPipeline() {
 
         <div className="flex gap-[var(--card-gap)]">
 
-          {/* 左卡 - 固定宽度 491px，高度 811px */}
+          {/* 左卡 - 固定宽度 491px */}
           <div className="w-[491px] flex flex-col gap-[var(--content-gap)] bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)]">
 
             <CardHeader letter="A" label="MF_CHINESEWEATHERING" />
@@ -108,13 +111,14 @@ function MaterialPipeline() {
               A custom UE5 Material Function layering yellowing, dust, moisture and roughness.
             </p>
 
-            {/* 四个彩色标签卡 - 竖向堆叠，每个 415×118 */}
+            {/* 四个彩色标签卡 - 竖向堆叠，每个 415×118，背景 #1A1A1A */}
             <div className="flex flex-col gap-[var(--item-gap)]">
               {maskTypes.map((mask) => (
                 <div
                   key={mask.label}
-                  className="w-[415px] h-[118px] bg-bg-card-darker rounded-[var(--radius-small)] p-[var(--item-gap)] flex flex-col gap-[var(--text-gap)]"
+                  className="w-[415px] h-[118px] rounded-[var(--radius-small)] p-[var(--item-gap)] flex flex-col gap-[var(--text-gap)]"
                   style={{
+                    backgroundColor: '#1A1A1A',
                     borderWidth: '1px',
                     borderStyle: 'solid',
                     borderColor: '#333333'
@@ -162,17 +166,21 @@ function MaterialPipeline() {
             <div
               ref={containerRef}
               className="relative bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden"
-              style={{ width: '781px', height: '599px', cursor: isDragging ? 'grabbing' : 'grab' }}
+              style={{ width: '781px', height: '599px', cursor: isHovering ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => {
+                setIsHovering(false)
+                setIsDragging(false)
+              }}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
               onWheel={handleWheel}
             >
               <img
                 src="/images/cl-interior/material-node-graph.png"
                 alt="Material node graph"
-                className="absolute top-0 left-0 w-full h-auto select-none"
+                className="absolute top-0 left-0 w-full h-auto select-none pointer-events-none"
                 style={{
                   transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
                   transformOrigin: '0 0'
@@ -182,14 +190,14 @@ function MaterialPipeline() {
                   e.target.style.display = 'none'
                   const placeholder = document.createElement('div')
                   placeholder.className = 'absolute inset-0 bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
-                  placeholder.textContent = 'Node Graph'
+                  placeholder.textContent = 'Node Graph (temporary placeholder - use test image)'
                   e.target.parentNode.appendChild(placeholder)
                 }}
               />
             </div>
 
-            {/* BEFORE/AFTER 静态图片模块 401×274 */}
-            <div className="relative rounded-[12px] overflow-hidden" style={{ width: '401px', height: '274px', borderWidth: '1px', borderStyle: 'solid', borderColor: '#C9A227' }}>
+            {/* BEFORE/AFTER 静态图片模块 401×274，右对齐 */}
+            <div className="ml-auto relative rounded-[12px] overflow-hidden" style={{ width: '401px', height: '274px', borderWidth: '1px', borderStyle: 'solid', borderColor: '#C9A227' }}>
               <img
                 src="/images/cl-interior/material-before-after.png"
                 alt="Material weathering comparison"
