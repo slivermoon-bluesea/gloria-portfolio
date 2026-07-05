@@ -48,11 +48,11 @@ function CinematicLighting() {
           />
         </div>
 
-        <div className="flex gap-[var(--card-gap)]">
+        <div className="flex gap-[var(--card-gap)] items-stretch">
 
           {/* 左侧 - 图片切换区 (约 2/3) */}
-          <div className="flex-[2]">
-            <div className="relative w-full aspect-[16/9] bg-bg-card rounded-[var(--radius-card)] overflow-hidden">
+          <div className="flex-[2] flex">
+            <div className="relative w-full bg-bg-card rounded-[var(--radius-card)] overflow-hidden">
               {/* 4 张图片叠放，crossfade 切换 */}
               {passes.map((pass) => (
                 <img

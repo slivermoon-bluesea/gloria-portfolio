@@ -14,7 +14,7 @@ function SceneConstruction() {
           />
         </div>
 
-        {/* 单张完整图片 */}
+        {/* 单张完整图片 + 三个标签 */}
         <div className="relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden bg-bg-card mb-[var(--content-gap)]">
           <img
             src="/images/cl-interior/scene-construction.png"
@@ -24,6 +24,21 @@ function SceneConstruction() {
               e.target.style.display = 'none'
             }}
           />
+
+          {/* FINAL 标签 - 左侧约33% */}
+          <div className="absolute top-[var(--item-gap)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-primary" style={{ left: '33%' }}>
+            FINAL
+          </div>
+
+          {/* SET DRESS 标签 - 约61% */}
+          <div className="absolute top-[var(--item-gap)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-primary" style={{ left: '61%' }}>
+            SET DRESS
+          </div>
+
+          {/* WIREFRAME 标签 - 右侧稍微往左 */}
+          <div className="absolute top-[var(--item-gap)] font-body font-semibold text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-primary" style={{ right: '28px' }}>
+            WIREFRAME
+          </div>
         </div>
 
         {/* 底部两行说明文字 */}
