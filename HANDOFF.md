@@ -31,18 +31,23 @@
 - Figma 里选中带图片填充的图层 → Export → 2x PNG(crop/调色会一起烘焙进去,所见即所得)
 - 放入 `public/images/cl-interior/`,命名:模块-序号-内容(hero.png、final-frame-01-wide.png、material-01-color.png…)
 - 终端做完 M8 后会产出"图片清单.md"对照导出
-- M5 的 5 张必须同机位同分辨率零裁切差异(滑块叠图,差一像素就跳);要统一调色就在 Figma 用同尺寸 frame 同 crop 参数一起导
+- M5 的 4 张(key/bounce/volumetrics/final,已弃用 flat)必须同机位同分辨率零裁切差异(crossfade 叠切,差一像素就跳);要统一调色就在 Figma 用同尺寸 frame 同 crop 参数一起导
 
-## M5 交互规格(做到 M5 时发给终端)
-- before/after 滑块:金色竖线 + 圆把手可拖拽,左侧固定 lighting-flat.png
-- 四个 pass 标签(Key only / +Bounce / +Volumetrics / Final):切换滑块右侧图(lighting-key/bounce/volumetrics/final.png),选中态金底黑字,默认 Final
-- 切换直接换图不加过渡;右侧 01~04 说明列表为静态
+## M5 交互规格(2026-07-05 重做,已推翻旧 slider 方案)
+- ❌ 删掉 before/after 滑块(竖线+把手+左侧 flat 图逻辑全删)
+- 四个 pass toggle(Key only / +Bounce / +Volumetrics / Final):点谁换整张图,选中态金底黑字,**默认 Key only**(从起点顺 build-up 走,Final 是高潮放最后)
+- 图片切换加 opacity crossfade 180ms;4 张图组件挂载时全部预加载(new Image() / preload)
+- toggle ↔ note 联动(Key only→01 / +Bounce→02 / +Volumetrics→03 / Final→04):
+  - 选中 note = opacity 1 + 编号金色(可提亮到 #E0B840)+ 左侧 3px #C9A227 竖线 indicator
+  - 其余 note = opacity 0.4(糊到认不出才回调,上限 0.45),transition 0.2s 与图片 crossfade 同步
+  - 保持白字,整条不变金(金留给 accent 指向性)
+- note 文案已核对为分阶段 build-up 描述,与 pass 一一对应成立
 
 ## UE5 灯光 pass 拍摄步骤(Annie 自己操作)
 1. 用出 final 的 CineCameraActor,Pilot 后全程不动
 2. PostProcessVolume → Exposure → Manual 固定 EV(必须,否则自动曝光毁对比)
 3. 每档 `HighResShot 3840x1620`,图在 Saved/Screenshots/
-4. flat:View Mode = Unlit → 拍
+4. ~~flat:View Mode = Unlit → 拍~~(M5 改 crossfade 后不再需要 flat,跳过)
 5. key only:Lit;PPV 的 GI Method = None;SkyLight 和 ExponentialHeightFog 取消 Visible → 拍
 6. +bounce:GI 改回 Lumen,SkyLight 恢复,雾仍关 → 拍
 7. +volumetrics:雾打开(Volumetric Fog 勾选),主光 Volumetric Scattering Intensity 保持原值 → 拍
