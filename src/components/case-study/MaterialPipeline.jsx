@@ -95,8 +95,8 @@ function MaterialPipeline() {
 
         <div className="flex gap-[var(--card-gap)]">
 
-          {/* 左卡 - 约 60% */}
-          <div className="flex-[3] flex flex-col gap-[var(--content-gap)] bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)]">
+          {/* 左卡 - 固定宽度 491px，高度 811px */}
+          <div className="w-[491px] flex flex-col gap-[var(--content-gap)] bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)]">
 
             <CardHeader letter="A" label="MF_CHINESEWEATHERING" />
 
@@ -108,12 +108,12 @@ function MaterialPipeline() {
               A custom UE5 Material Function layering yellowing, dust, moisture and roughness.
             </p>
 
-            {/* 四个彩色标签卡 - 竖向堆叠，尺寸 415×118 */}
+            {/* 四个彩色标签卡 - 竖向堆叠，每个 415×118 */}
             <div className="flex flex-col gap-[var(--item-gap)]">
               {maskTypes.map((mask) => (
                 <div
                   key={mask.label}
-                  className="bg-bg-card-darker rounded-[var(--radius-small)] p-[var(--item-gap)] flex flex-col gap-[var(--text-gap)]"
+                  className="w-[415px] h-[118px] bg-bg-card-darker rounded-[var(--radius-small)] p-[var(--item-gap)] flex flex-col gap-[var(--text-gap)]"
                   style={{
                     borderWidth: '1px',
                     borderStyle: 'solid',
@@ -155,14 +155,14 @@ function MaterialPipeline() {
             </p>
           </div>
 
-          {/* 右侧 - 约 40% */}
-          <div className="flex-[2] flex flex-col gap-[var(--item-gap)]">
+          {/* 右侧 - flex-1 填充剩余空间 */}
+          <div className="flex-1 flex flex-col gap-[var(--item-gap)]">
 
-            {/* 单张节点图 - pan/zoom 交互 */}
+            {/* 单张节点图 - 固定容器 781×599，pan/zoom 交互 */}
             <div
               ref={containerRef}
-              className="relative bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden flex-1"
-              style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
+              className="relative bg-bg-card rounded-[var(--radius-card)] border border-border overflow-hidden"
+              style={{ width: '781px', height: '599px', cursor: isDragging ? 'grabbing' : 'grab' }}
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
