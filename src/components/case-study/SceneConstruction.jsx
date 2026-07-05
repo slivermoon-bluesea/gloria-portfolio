@@ -1,7 +1,18 @@
+import SectionHeader from './SectionHeader'
+
 function SceneConstruction() {
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
       <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
+
+        {/* Section Header */}
+        <div className="mb-[var(--section-gap)]">
+          <SectionHeader
+            number="05"
+            eyebrow="TECHNICAL BREAKDOWN"
+            title="Scene Construction & Performance"
+          />
+        </div>
 
         {/* 三段斜切拼接容器 */}
         <div className="relative w-full aspect-[21/9] bg-bg-card rounded-[var(--radius-card)] overflow-hidden mb-[var(--content-gap)]">

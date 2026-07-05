@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import SectionHeader from './SectionHeader'
 
 function CinematicLighting() {
   const [activePass, setActivePass] = useState('final')
@@ -49,6 +50,15 @@ function CinematicLighting() {
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
       <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
+
+        {/* Section Header */}
+        <div className="mb-[var(--section-gap)]">
+          <SectionHeader
+            number="04"
+            eyebrow="TECHNICAL BREAKDOWN"
+            title="Cinematic Lighting"
+          />
+        </div>
 
         <div className="flex gap-[var(--card-gap)]">
 

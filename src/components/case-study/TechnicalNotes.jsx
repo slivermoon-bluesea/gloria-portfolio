@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import SectionHeader from './SectionHeader'
 
 function TechnicalNotes() {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -30,15 +31,21 @@ function TechnicalNotes() {
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
       <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
 
+        {/* Section Header */}
+        <div className="mb-[var(--section-gap)]">
+          <SectionHeader
+            number="07"
+            eyebrow="BEHIND THE SCENES"
+            title="Process"
+          />
+        </div>
+
         {/* 折叠头部 */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
           className="w-full flex items-center justify-between bg-bg-card rounded-[var(--radius-card)] border border-border p-[var(--card-gap)] hover:border-border-heavy transition-colors"
         >
-          <h3 className="font-heading font-bold text-section text-text-primary flex items-center gap-[var(--item-gap)]">
-            Process
-            <span className="text-accent-gold">▸</span>
-          </h3>
+          <span className="font-heading font-bold text-section text-text-primary">▸</span>
 
           {/* 展开/收起图标 */}
           <svg

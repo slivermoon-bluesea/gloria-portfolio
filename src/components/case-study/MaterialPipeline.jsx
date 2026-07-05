@@ -1,3 +1,4 @@
+import SectionHeader from './SectionHeader'
 import CardHeader from './CardHeader'
 
 function MaterialPipeline() {
@@ -37,15 +38,24 @@ function MaterialPipeline() {
   ]
 
   const nodeGraphs = [
-    { id: 1, color: '#808000', image: '/images/cl-interior/material-node-1-color.png' }, // 橄榄绿
-    { id: 2, color: '#4A90E2', image: '/images/cl-interior/material-node-2-height.png' }, // 蓝色
-    { id: 3, color: '#7ED321', image: '/images/cl-interior/material-node-3-roughness.png' }, // 绿色
-    { id: 4, color: '#BD10E0', image: '/images/cl-interior/material-node-4-normal.png' } // 紫色
+    { id: 1, color: '#808000', image: '/images/cl-interior/material-node-1-color.png' },
+    { id: 2, color: '#4A90E2', image: '/images/cl-interior/material-node-2-height.png' },
+    { id: 3, color: '#7ED321', image: '/images/cl-interior/material-node-3-roughness.png' },
+    { id: 4, color: '#BD10E0', image: '/images/cl-interior/material-node-4-normal.png' }
   ]
 
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
       <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
+
+        {/* Section Header */}
+        <div className="mb-[var(--section-gap)]">
+          <SectionHeader
+            number="03"
+            eyebrow="TECHNICAL BREAKDOWN"
+            title="Material & Texture Pipeline"
+          />
+        </div>
 
         <div className="flex gap-[var(--card-gap)]">
 
@@ -62,8 +72,8 @@ function MaterialPipeline() {
               A custom UE5 Material Function layering yellowing, dust, moisture and roughness.
             </p>
 
-            {/* 四个彩色标签卡 2×2 */}
-            <div className="grid grid-cols-2 gap-[var(--item-gap)]">
+            {/* 四个彩色标签卡 - 竖向堆叠 */}
+            <div className="flex flex-col gap-[var(--item-gap)]">
               {maskTypes.map((mask) => (
                 <div
                   key={mask.label}
@@ -104,17 +114,17 @@ function MaterialPipeline() {
             {nodeGraphs.map((node) => (
               <div
                 key={node.id}
-                className="bg-bg-card rounded-[var(--radius-small)] border border-border overflow-hidden"
+                className="bg-bg-card rounded-[var(--radius-small)] border border-border overflow-hidden flex-1"
               >
                 <div className="h-[8px]" style={{ backgroundColor: node.color }} />
                 <img
                   src={node.image}
                   alt={`Node graph ${node.id}`}
-                  className="w-full h-auto"
+                  className="w-full h-full object-cover"
                   onError={(e) => {
                     e.target.style.display = 'none'
                     const placeholder = document.createElement('div')
-                    placeholder.className = 'w-full h-[120px] bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
+                    placeholder.className = 'w-full h-full bg-bg-card-darker flex items-center justify-center text-text-tertiary text-body'
                     placeholder.textContent = `Node Graph ${node.id}`
                     e.target.parentNode.appendChild(placeholder)
                   }}

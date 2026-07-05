@@ -1,3 +1,5 @@
+import SectionHeader from './SectionHeader'
+
 function HeroPropBreakdown() {
   const detailViews = [
     { id: 'wireframe', label: 'WIREFRAME', image: '/images/cl-interior/hero-prop-wireframe.png' },
@@ -8,6 +10,15 @@ function HeroPropBreakdown() {
   return (
     <section className="w-full bg-bg-primary py-[var(--container-padding-y)]">
       <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
+
+        {/* Section Header */}
+        <div className="mb-[var(--section-gap)]">
+          <SectionHeader
+            number="06"
+            eyebrow="TECHNICAL BREAKDOWN"
+            title="Hero Prop Breakdown"
+          />
+        </div>
 
         {/* 主图 */}
         <div className="mb-[var(--card-gap)]">
