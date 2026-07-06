@@ -1,14 +1,32 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import CLInterior from './pages/CaseStudies/CLInterior'
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import Work from './pages/Work'
+import Resume from './pages/Resume'
+import EchoesOfJiangnan from './pages/CaseStudies/EchoesOfJiangnan'
+import SignalLost from './pages/CaseStudies/SignalLost'
+import Teyata from './pages/CaseStudies/Teyata'
 import DesignSystemDemo from './pages/DesignSystemDemo'
+
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [pathname])
+
+  return null
+}
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/case-studies/cl-interior" element={<CLInterior />} />
+        <Route path="/" element={<Work />} />
+        <Route path="/resume" element={<Resume />} />
+        <Route path="/case-studies/echoes-of-jiangnan" element={<EchoesOfJiangnan />} />
+        <Route path="/case-studies/signal-lost" element={<SignalLost />} />
+        <Route path="/case-studies/teyata" element={<Teyata />} />
         <Route path="/design-system" element={<DesignSystemDemo />} />
       </Routes>
     </Router>

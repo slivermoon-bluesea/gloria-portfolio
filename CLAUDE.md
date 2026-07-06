@@ -1,10 +1,11 @@
-# CL Interior Portfolio - 项目协作规则
+# Portfolio Website - 项目协作规则
 
 ## 项目概述
 
-**目标**: 将 Figma 设计稿精确还原为作品集网站  
-**Figma 文件**: `lpnDHdskJUCZPZf5QPQBvd` (CL_Interior — Portfolio Case Study)  
-**当前阶段**: Figma 已从线框图更新为高保真设计,整页按新设计分阶段重建(阶段 0~8);旧线框数值全部作废,一律用 figma MCP 重新读取
+**目标**: 多作品集网站,首页 Work 列表 + 多个案例研究(Echoes of Jiangnan / Signal Lost / Teyata…)
+**Echoes of Jiangnan(原 CLInterior)**: 本文档大部分开发规范以这个项目为例写成,是第一个精确还原 Figma 设计稿的案例研究
+**Figma 文件**: `lpnDHdskJUCZPZf5QPQBvd` (CL_Interior — Portfolio Case Study,对应 Echoes of Jiangnan)
+**当前阶段**: Echoes of Jiangnan 阶段 0~8 已全部建完(细节校对仍在导演会话中逐模块进行,见 HANDOFF.md);Signal Lost 第二个案例研究已搭好骨架;Teyata 是第三个案例研究,当前仅占位页,待设计稿
 
 ---
 
@@ -22,27 +23,35 @@
 ```
 src/
 ├── pages/
-│   ├── Home.jsx                    # 首页占位
+│   ├── Work.jsx                        # 首页(/),三卡列表 → 三个案例研究
+│   ├── Resume.jsx
 │   └── CaseStudies/
-│       └── CLInterior.jsx          # CL Interior 案例页
+│       ├── EchoesOfJiangnan.jsx         # 案例页(原 CLInterior)
+│       ├── SignalLost.jsx               # 案例页
+│       └── Teyata.jsx                   # 占位页(Coming Soon,待设计稿)
 ├── components/
-│   └── case-study/                 # 案例研究通用组件
-│       ├── SectionHeader.jsx
-│       ├── ImagePlaceholder.jsx
-│       ├── Caption.jsx
-│       └── ...
+│   ├── Nav.jsx / Footer.jsx             # 全站公共
+│   ├── echoes-of-jiangnan/              # Echoes of Jiangnan 专属组件
+│   │   ├── SectionHeader.jsx / CardHeader.jsx / Figure.jsx / ImageLabel.jsx / Placeholder.jsx  ← 这几个也被 signal-lost 跨目录复用
+│   │   └── Hero.jsx / Overview.jsx / FinalFrames.jsx / MaterialPipeline.jsx / CinematicLighting.jsx / SceneConstruction.jsx / HeroPropBreakdown.jsx / TechnicalNotes.jsx
+│   └── signal-lost/                     # Signal Lost 专属组件
+│       └── Hero.jsx / Overview.jsx / Gallery.jsx / Storytelling.jsx / PropDensity.jsx / Lighting.jsx / Process.jsx
 ├── assets/                         # 图片资源
 ├── App.jsx                         # 路由配置
 └── index.css                       # 全局样式 + Tailwind
 ```
 
+> ⚠️ `echoes-of-jiangnan/` 里的 SectionHeader/CardHeader/Figure/Placeholder/ImageLabel 是**跨项目共享组件**(signal-lost 也在用)。以后要挪动/改名这个目录,先 grep 全局引用,别只看 EchoesOfJiangnan.jsx 一个文件。
+
 ---
 
 ## 路由规范
 
-- 首页: `/`
+- 首页: `/`(Work 三卡列表)
 - 案例研究: `/case-studies/[项目名]`
-- CL Interior: `/case-studies/cl-interior`
+  - `/case-studies/echoes-of-jiangnan`
+  - `/case-studies/signal-lost`
+  - `/case-studies/teyata`(占位)
 
 ---
 
@@ -70,7 +79,7 @@ src/
 
 - 语义化 HTML:nav / main / section / figure / figcaption / footer;每个编号模块一个 `<section>`
 - 禁止内联 style,全部用 Tailwind 类 + @theme token
-- 图片用 figma MCP `download_assets` 导出到 `public/images/cl-interior/`,禁止 placehold.co
+- 图片用 figma MCP `download_assets` 导出到 `public/images/cl-interior/`(历史命名,故意不随 echoes-of-jiangnan 改名——改名要动几十处硬编码图片路径,风险大于收益;新项目图片可另起子目录如 `public/images/signal-lost/`),禁止 placehold.co
 - 设计稿里的占位文案原样保留,并加 `{/* TODO: 替换真实文案 */}`
 
 ### 5. 模块开发顺序(阶段 0~8)
@@ -120,9 +129,9 @@ curl -H "X-Figma-Token: {FIGMA_TOKEN}" \
 ## 当前状态
 
 - [x] 项目初始化(Vite + React + Tailwind v4 + Router)
-- [ ] 阶段 0:设计系统地基(token + 公共组件)未开始
-- [ ] 阶段 1:Nav + Hero(现有 Hero.jsx 是旧线框版,需按新设计重写)
-- [ ] 阶段 2:Project Overview(现有 Overview.jsx 是旧线框版,需重写)
-- [ ] 阶段 3~8:未开始
+- [x] Echoes of Jiangnan 阶段 0~8 全部建完(细节校对进行中,见 HANDOFF.md「已定稿规格」)
+- [x] 首页 Work 三卡列表 + Teyata 占位页 + Footer prev/next 三项目导航
+- [ ] Signal Lost:骨架已搭(7 个模块组件),内容/图片素材/视觉细节待补
+- [ ] Teyata:仅 Coming Soon 占位,等设计稿
 
-> 注:src 下现存的 Hero.jsx / Overview.jsx / SectionHeader.jsx 基于已作废的线框数值,重写时可直接替换。
+> 注:详细的模块级进度、已定稿规格、踩过的坑,以 HANDOFF.md 为准(那边更新更勤)。

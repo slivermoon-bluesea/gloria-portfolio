@@ -16,6 +16,12 @@
   --color-border-light: #2a2a2a;
   --color-border-heavy: #444444;
 
+  /* Graph node accent colors */
+  --color-graph-color: #C9A227;
+  --color-graph-height: #4A8CFF;
+  --color-graph-rough: #38C72E;
+  --color-graph-normal: #B435A9;
+
   /* === Typography === */
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
@@ -41,7 +47,7 @@
   /* === Spacing === */
   --container-max-width: 1440px;
   --container-padding-x: 72px;
-  --container-padding-y: 48px;
+  --container-padding-y: 36px;
   --section-gap: 32px;
   --card-gap: 24px;
   --content-gap: 20px;

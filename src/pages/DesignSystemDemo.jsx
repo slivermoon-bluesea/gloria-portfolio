@@ -1,6 +1,6 @@
-import SectionHeader from '../components/case-study/SectionHeader'
-import CardHeader from '../components/case-study/CardHeader'
-import Figure from '../components/case-study/Figure'
+import SectionHeader from '../components/echoes-of-jiangnan/SectionHeader'
+import CardHeader from '../components/echoes-of-jiangnan/CardHeader'
+import Figure from '../components/echoes-of-jiangnan/Figure'
 
 function DesignSystemDemo() {
   return (
