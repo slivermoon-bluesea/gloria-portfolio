@@ -12,14 +12,6 @@ function Nav() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const scrollToFooter = (e) => {
-    e.preventDefault()
-    const footer = document.querySelector('footer')
-    if (footer) {
-      footer.scrollIntoView({ behavior: 'smooth', block: 'end' })
-    }
-  }
-
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
@@ -56,14 +48,6 @@ function Nav() {
             >
               Resume
             </Link>
-          </li>
-          <li>
-            <button
-              onClick={scrollToFooter}
-              className="font-body text-body font-medium text-text-secondary hover:text-text-primary transition-colors"
-            >
-              Contact
-            </button>
           </li>
         </ul>
       </div>
