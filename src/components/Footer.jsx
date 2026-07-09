@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 
 const PROJECTS = [
   { slug: 'echoes-of-jiangnan', label: 'Echoes of Jiangnan' },
-  { slug: 'signal-lost', label: 'Signal Lost' },
+  // { slug: 'signal-lost', label: 'Signal Lost' },
   { slug: 'teyata', label: 'Teyata' }
 ]
 
@@ -12,11 +12,13 @@ function Footer() {
     (p) => location.pathname === `/case-studies/${p.slug}`
   )
   const isCaseStudyPage = currentIndex !== -1
-  const prevProject = isCaseStudyPage
-    ? PROJECTS[(currentIndex - 1 + PROJECTS.length) % PROJECTS.length]
+
+  // 只显示其他项目，不循环
+  const prevProject = isCaseStudyPage && currentIndex > 0
+    ? PROJECTS[currentIndex - 1]
     : null
-  const nextProject = isCaseStudyPage
-    ? PROJECTS[(currentIndex + 1) % PROJECTS.length]
+  const nextProject = isCaseStudyPage && currentIndex < PROJECTS.length - 1
+    ? PROJECTS[currentIndex + 1]
     : null
 
   return (
