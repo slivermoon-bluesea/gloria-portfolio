@@ -9,7 +9,7 @@ function Work() {
       title: 'Echoes of Jiangnan',
       subtitle: 'Abandoned Jiangnan Interior · Environment Storytelling & Decay',
       tag: 'UE5 · 2026',
-      image: '/images/cl-interior/hero.png',
+      image: '/images/cl-interior/hero.webp',
       status: 'live'
     },
     {
