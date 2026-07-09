@@ -5,15 +5,17 @@
 **目标**: 多作品集网站,首页 Work 列表 + 多个案例研究(Echoes of Jiangnan / Signal Lost / Teyata…)
 **Echoes of Jiangnan(原 CLInterior)**: 本文档大部分开发规范以这个项目为例写成,是第一个精确还原 Figma 设计稿的案例研究
 **Figma 文件**: `lpnDHdskJUCZPZf5QPQBvd` (CL_Interior — Portfolio Case Study,对应 Echoes of Jiangnan)
-**当前阶段**: Echoes of Jiangnan 阶段 0~8 已全部建完(细节校对仍在导演会话中逐模块进行,见 HANDOFF.md);Signal Lost 第二个案例研究已搭好骨架;Teyata 是第三个案例研究,当前仅占位页,待设计稿
+**当前阶段**: 主体完成并已上线(Vercel: https://gloria-protfolio.vercel.app/ ,push master 自动部署;仓库 github.com/slivermoon-bluesea/gloria-portfolio)。Echoes of Jiangnan 8 模块全做完;Work 首页 / Resume 页 / Footer 完成;全站图片已转 WebP 优化。Signal Lost 已搭骨架待逐屏验收;Teyata 仅占位页待设计稿。详细状态见 HANDOFF.md
 
 ---
 
 ## 技术栈
 
-- **框架**: Vite + React 18
+- **框架**: Vite + React 19
 - **样式**: Tailwind CSS v4 (使用 @tailwindcss/vite 插件)
-- **路由**: React Router v6
+- **路由**: React Router v7
+- **部署**: Vercel(GitHub 自动构建,根路径,`vercel.json` 配 SPA 回退)
+- **图片**: 全部 WebP,放 `public/images/cl-interior/`,首屏以下 lazy-load
 - **字体**: Playfair Display (标题), Inter (正文)
 
 ---
@@ -129,7 +131,7 @@ curl -H "X-Figma-Token: {FIGMA_TOKEN}" \
 ## 当前状态
 
 - [x] 项目初始化(Vite + React + Tailwind v4 + Router)
-- [x] Echoes of Jiangnan 阶段 0~8 全部建完(细节校对进行中,见 HANDOFF.md「已定稿规格」)
+- [x] Echoes of Jiangnan 阶段 0~8 全部建完 + 细节校对完成 + 已上线
 - [x] 首页 Work 三卡列表 + Teyata 占位页 + Footer prev/next 三项目导航
 - [ ] Signal Lost:骨架已搭(7 个模块组件),内容/图片素材/视觉细节待补
 - [ ] Teyata:仅 Coming Soon 占位,等设计稿
