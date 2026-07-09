@@ -7,7 +7,7 @@ function Figure({ src, alt, mainCaption, subCaption, overlayLabel, aspectRatio =
         className="relative w-full rounded-card overflow-hidden bg-bg-card-darker"
         style={{ aspectRatio }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={src}
           alt={alt}
           className="w-full h-full object-cover"

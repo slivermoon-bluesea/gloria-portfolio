@@ -2,9 +2,9 @@ import SectionHeader from './SectionHeader'
 
 function HeroPropBreakdown() {
   const detailViews = [
-    { id: 'wireframe', label: 'WIREFRAME', image: '/images/cl-interior/prop-wireframe.png' },
-    { id: 'basecolor', label: 'BASE COLOR', image: '/images/cl-interior/prop-basecolor.png' },
-    { id: 'detail', label: 'DETAIL', image: '/images/cl-interior/prop-detail.png' }
+    { id: 'wireframe', label: 'WIREFRAME', image: '/images/cl-interior/prop-wireframe.webp' },
+    { id: 'basecolor', label: 'BASE COLOR', image: '/images/cl-interior/prop-basecolor.webp' },
+    { id: 'detail', label: 'DETAIL', image: '/images/cl-interior/prop-detail.webp' }
   ]
 
   return (
@@ -22,8 +22,8 @@ function HeroPropBreakdown() {
 
         {/* 顶部大图 - 居中、纯黑底、圆角12px */}
         <div className="mb-[var(--card-gap)] flex justify-center bg-black rounded-[12px] overflow-hidden">
-          <img
-            src="/images/cl-interior/hero-prop.png"
+          <img loading="lazy" decoding="async"
+            src="/images/cl-interior/hero-prop.webp"
             alt="Scholar table hero prop"
             className="max-w-full h-auto"
           />
@@ -35,7 +35,7 @@ function HeroPropBreakdown() {
             <div key={view.id} className="rounded-[12px] overflow-hidden bg-bg-card">
               {/* 图片区域 - 固定 414x274，四角直角顶到容器 */}
               <div className="w-full h-[274px] flex items-center justify-center bg-black">
-                <img
+                <img loading="lazy" decoding="async"
                   src={view.image}
                   alt={view.label}
                   className="w-full h-full object-contain"

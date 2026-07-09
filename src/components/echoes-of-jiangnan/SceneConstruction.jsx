@@ -16,8 +16,8 @@ function SceneConstruction() {
 
         {/* 单张完整图片 + 三个标签 */}
         <div className="relative aspect-[21/9] rounded-[var(--radius-card)] overflow-hidden bg-bg-card mb-[var(--content-gap)]">
-          <img
-            src="/images/cl-interior/scene-construction.png"
+          <img loading="lazy" decoding="async"
+            src="/images/cl-interior/scene-construction.webp"
             alt="Scene construction - wireframe, set dress, and final render"
             className="w-full h-full object-cover"
             onError={(e) => {

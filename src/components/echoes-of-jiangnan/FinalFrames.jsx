@@ -16,7 +16,7 @@ function FinalFrames() {
 
           {/* Main hero shot - Full width */}
           <Figure
-            src="/images/cl-interior/final-frame-01.png"
+            src="/images/cl-interior/final-frame-01.webp"
             alt="Main cinematic shot"
             overlayLabel="SCENE WIDE-SHOT · MOON DOOR VIEW"
             mainCaption="Hero Shot — the moon gate frames the landscape screen while a warm key light rakes across the tea table."
@@ -27,7 +27,7 @@ function FinalFrames() {
           {/* Two images side by side */}
           <div className="grid grid-cols-2 gap-[var(--card-gap)]">
             <Figure
-              src="/images/cl-interior/final-frame-02.png"
+              src="/images/cl-interior/final-frame-02.webp"
               alt="Low-angle shot"
               overlayLabel="LOW-ANGLE SHOT · PATTERNED RUG"
               mainCaption="Low-angle composition with god-rays and drifting dust over the patterned rug."
@@ -35,7 +35,7 @@ function FinalFrames() {
               aspectRatio="16/9"
             />
             <Figure
-              src="/images/cl-interior/final-frame-03.png"
+              src="/images/cl-interior/final-frame-03.webp"
               alt="Elevated shot"
               overlayLabel="ELEVATED SHOT · WATER-TOWN VIEW"
               mainCaption="Elevated view revealing the Jiangnan water-town exterior beyond the ivy-covered window."

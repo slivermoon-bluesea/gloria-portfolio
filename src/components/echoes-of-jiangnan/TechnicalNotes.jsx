@@ -6,22 +6,22 @@ function TechnicalNotes() {
     {
       id: 1,
       label: 'REFERENCE BOARD',
-      image: '/images/cl-interior/process-reference.png'
+      image: '/images/cl-interior/process-reference.webp'
     },
     {
       id: 2,
       label: 'MODELING',
-      image: '/images/cl-interior/process-modeling.png'
+      image: '/images/cl-interior/process-modeling.webp'
     },
     {
       id: 3,
       label: 'MODULAR KIT',
-      image: '/images/cl-interior/process-modularkit.png'
+      image: '/images/cl-interior/process-modularkit.webp'
     },
     {
       id: 4,
       label: 'LAYOUT BREAKDOWN',
-      image: '/images/cl-interior/process-layout-breakdown.png'
+      image: '/images/cl-interior/process-layout-breakdown.webp'
     }
   ]
 
@@ -48,7 +48,7 @@ function TechnicalNotes() {
                 key={step.id}
                 className="relative aspect-[16/9] bg-bg-card rounded-[var(--radius-card)] overflow-hidden"
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={step.image}
                   alt=""
                   className="w-full h-full object-cover"
@@ -69,7 +69,7 @@ function TechnicalNotes() {
               key={step.id}
               className="relative aspect-[16/9] bg-bg-card rounded-[var(--radius-card)] overflow-hidden"
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={step.image}
                 alt=""
                 className="w-full h-full object-cover"

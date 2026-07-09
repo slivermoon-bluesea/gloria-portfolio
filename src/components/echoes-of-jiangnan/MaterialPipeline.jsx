@@ -201,8 +201,8 @@ function MaterialPipeline() {
               onMouseUp={handleMouseUp}
               onWheel={handleWheel}
             >
-              <img
-                src="/images/cl-interior/material-node-graph.png"
+              <img loading="lazy" decoding="async"
+                src="/images/cl-interior/material-node-graph.webp"
                 alt="Material node graph"
                 className="absolute top-0 left-0 w-full h-auto select-none pointer-events-none"
                 style={{
@@ -223,8 +223,8 @@ function MaterialPipeline() {
             {/* BEFORE/AFTER 静态图片模块 401×274，绝对定位右下角，无边框 */}
             <div className="absolute bottom-0 right-0 rounded-[12px] overflow-hidden" style={{ width: '401px', height: '274px' }}>
               <div className="relative w-full h-full">
-                <img
-                  src="/images/cl-interior/material-before-after.png"
+                <img loading="lazy" decoding="async"
+                  src="/images/cl-interior/material-before-after.webp"
                   alt="Material weathering comparison"
                   className="w-full h-full object-cover"
                   onError={(e) => {

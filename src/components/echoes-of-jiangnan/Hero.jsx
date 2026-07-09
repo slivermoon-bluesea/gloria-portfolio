@@ -4,7 +4,7 @@ function Hero() {
       {/* Hero Image - Full bleed */}
       <div className="absolute inset-0">
         <img
-          src="/images/cl-interior/hero.png"
+          src="/images/cl-interior/hero.webp"
           alt="Echoes of Jiangnan - Abandoned tea room interior"
           className="w-full h-full object-cover"
           style={{ objectPosition: '40% center' }}

@@ -134,8 +134,8 @@ function Overview() {
 
             {/* Image Card */}
             <div className="relative rounded-card overflow-hidden flex-1">
-              <img
-                src="/images/cl-interior/overview-scene.png"
+              <img loading="lazy" decoding="async"
+                src="/images/cl-interior/overview-scene.webp"
                 alt="Scene preview"
                 className="w-full h-full object-cover"
                 onError={(e) => {

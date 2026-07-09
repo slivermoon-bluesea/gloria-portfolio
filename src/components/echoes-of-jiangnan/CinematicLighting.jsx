@@ -31,7 +31,7 @@ function CinematicLighting() {
   useEffect(() => {
     ['key', 'bounce', 'volumetrics', 'final'].forEach(pass => {
       const img = new Image()
-      img.src = `/images/cl-interior/lighting-${pass}.png`
+      img.src = `/images/cl-interior/lighting-${pass}.webp`
     })
   }, [])
 
@@ -55,9 +55,9 @@ function CinematicLighting() {
             <div className="relative w-full bg-bg-card rounded-[var(--radius-card)] overflow-hidden">
               {/* 4 张图片叠放，crossfade 切换 */}
               {passes.map((pass) => (
-                <img
+                <img loading="lazy" decoding="async"
                   key={pass.id}
-                  src={`/images/cl-interior/lighting-${pass.id}.png`}
+                  src={`/images/cl-interior/lighting-${pass.id}.webp`}
                   alt={`Lighting ${pass.label}`}
                   className="absolute inset-0 w-full h-full object-cover transition-opacity duration-[180ms]"
                   style={{ opacity: activePass === pass.id ? 1 : 0 }}
