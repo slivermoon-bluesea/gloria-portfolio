@@ -29,7 +29,7 @@ function Work() {
                 {/* Phase 3D: 共享元素过渡 - layoutId 用于 morph 动画 */}
                 <motion.div
                   layoutId={`project-card-${project.id}`}
-                  className="relative aspect-[4/3] bg-bg-card-darker overflow-hidden"
+                  className="relative aspect-[16/9] bg-bg-card-darker overflow-hidden"
                   transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
                 >
                   {project.heroImage ? (
