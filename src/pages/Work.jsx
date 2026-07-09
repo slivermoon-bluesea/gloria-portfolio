@@ -1,34 +1,12 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
+import { projects } from '../data/projects'
 
 function Work() {
-  const projects = [
-    {
-      slug: 'echoes-of-jiangnan',
-      title: 'Echoes of Jiangnan',
-      subtitle: 'Abandoned Jiangnan Interior · Environment Storytelling & Decay',
-      tag: 'UE5 · 2026',
-      image: '/images/cl-interior/hero.webp',
-      status: 'live'
-    },
-    {
-      slug: 'signal-lost',
-      title: 'Signal Lost',
-      subtitle: 'Environment Storytelling',
-      tag: 'UE5',
-      image: null,
-      status: 'live'
-    },
-    {
-      slug: 'teyata',
-      title: 'Teyata',
-      subtitle: 'Coming Soon',
-      tag: 'In Production',
-      image: null,
-      status: 'coming-soon'
-    }
-  ]
+  // Phase 1A: 只显示 online: true 的项目（Echoes of Jiangnan + Teyata）
+  const visibleProjects = projects.filter(p => p.online)
 
   return (
     <div className="min-h-screen bg-bg-primary">
@@ -41,38 +19,46 @@ function Work() {
             Work
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[var(--card-gap)]">
-            {projects.map((project) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--card-gap)]">
+            {visibleProjects.map((project) => (
               <Link
-                key={project.slug}
-                to={`/case-studies/${project.slug}`}
+                key={project.id}
+                to={project.route}
                 className="group block rounded-card overflow-hidden border border-border bg-bg-card transition-colors hover:border-border-heavy"
               >
-                <div className="relative aspect-[4/3] bg-bg-card-darker overflow-hidden">
-                  {project.image && (
-                    <img
-                      src={project.image}
+                {/* Phase 3D: 共享元素过渡 - layoutId 用于 morph 动画 */}
+                <motion.div
+                  layoutId={`project-card-${project.id}`}
+                  className="relative aspect-[16/10] bg-bg-card-darker overflow-hidden"
+                  transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+                >
+                  {project.heroImage ? (
+                    <motion.img
+                      layoutId={`project-image-${project.id}`}
+                      src={project.heroImage}
                       alt={project.title}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                      transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
                     />
-                  )}
-                  {project.status === 'coming-soon' && (
-                    <div className="absolute top-3 right-3 font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-                      Coming Soon
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-tertiary">
+                        Image Coming Soon
+                      </span>
                     </div>
                   )}
-                </div>
-                <div className="p-[24px] flex flex-col gap-[var(--tight-gap)]">
-                  <p className="font-body text-caption uppercase tracking-[var(--letter-spacing-normal)] text-text-tertiary">
-                    {project.tag}
-                  </p>
-                  <h2 className="font-heading font-bold text-card text-text-primary group-hover:text-accent-gold transition-colors">
-                    {project.title}
-                  </h2>
-                  <p className="font-body text-body text-text-secondary">
-                    {project.subtitle}
-                  </p>
-                </div>
+
+                  {/* 标题层：底部，渐变背景 */}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg-primary/90 via-bg-primary/70 to-transparent p-[24px] pt-[48px]">
+                    <h2 className="font-heading font-bold text-card text-text-primary mb-[4px]">
+                      {project.title}
+                    </h2>
+                    <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
+                      {project.scope.work}
+                    </span>
+                  </div>
+                </motion.div>
               </Link>
             ))}
           </div>

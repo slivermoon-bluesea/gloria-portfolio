@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import SectionHeader from '../components/echoes-of-jiangnan/SectionHeader'
+import { projects } from '../data/projects'
 
 const skills = [
   {
@@ -15,41 +17,6 @@ const skills = [
   {
     label: 'Software',
     items: 'Maya (primary) · Substance Painter · Substance Designer · Mari (UDIM) · Unreal Engine 5 · Photoshop · PureRef'
-  }
-]
-
-const projects = [
-  {
-    title: 'Teyata',
-    role: '3D Environment Artist',
-    meta: "UE5 · Master's Thesis · 3-person team · Toronto Metropolitan University",
-    date: 'Nov 2024 – Jan 2025',
-    to: '/case-studies/teyata',
-    bullets: [
-      'Owned environment art for a narrative RPG world — authored terrain, waterways, and vegetation, and assembled the playable landscape in UE5.',
-      'Modeled and textured environment assets in Maya and Substance Painter, working to studio conventions (naming, directory structure, version discipline) across a multidisciplinary team.'
-    ]
-  },
-  {
-    title: 'Echoes of Jiangnan',
-    role: '3D Environment & Lighting Artist',
-    meta: 'Jiangnan Tea-House Interior · UE5 · Personal Project',
-    date: '',
-    to: '/case-studies/echoes-of-jiangnan',
-    bullets: [
-      'Built a complete real-time interior in UE5 with Lumen global illumination and Nanite geometry, from modeling in Maya to texturing in Substance Painter and Mari (UDIM).',
-      'Authored a custom weathering material function (orientation-based dust, height-based moisture) to drive believable, grounded surface aging across the scene.'
-    ]
-  },
-  {
-    title: 'Signal Lost',
-    role: '3D Environment Artist',
-    meta: '1980s Diorama · UE5 · Personal Project',
-    date: '',
-    to: '/case-studies/signal-lost',
-    bullets: [
-      'Building a real-time environment diorama with vintage electronics and furniture; authoring realistic PBR materials (aged plastic, wood grain, worn metal).'
-    ]
   }
 ]
 
@@ -112,10 +79,10 @@ function Resume() {
               3D Environment Artist · 3D Generalist
             </p>
             <p className="font-body text-body text-text-tertiary">
-              Toronto, ON (open to relocate across Canada) · Canadian PGWP valid through 2028
+              Based in Canada · Canadian PGWP valid through 2028
             </p>
             <a
-              href="/Gloria_Tang_Resume.pdf"
+              href="/Gloria_Tang_Resume.docx.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-[var(--tight-gap)] inline-flex w-fit items-center gap-[var(--tight-gap)] rounded-[var(--radius-small)] border border-accent-gold px-[24px] py-[12px] font-body text-body font-medium uppercase tracking-[var(--letter-spacing-normal)] text-accent-gold hover:bg-accent-gold hover:text-bg-primary transition-colors"
@@ -152,31 +119,70 @@ function Resume() {
           {/* 03 Projects */}
           <section className="pt-[var(--section-gap)]">
             <SectionHeader number="03" eyebrow="Selected Work" title="Projects" />
-            <div className="mt-[var(--content-gap)] grid grid-cols-1 md:grid-cols-3 gap-[var(--card-gap)]">
-              {projects.map((p) => (
+            <div className="mt-[var(--content-gap)] grid grid-cols-1 md:grid-cols-2 gap-[var(--card-gap)]">
+              {projects.filter(p => p.online).map((p) => (
                 <Link
-                  key={p.title}
-                  to={p.to}
-                  className="group flex flex-col gap-[var(--text-gap)] rounded-card border border-border bg-bg-card p-[24px] hover:border-border-heavy transition-colors"
+                  key={p.id}
+                  to={p.route}
+                  className="group block rounded-card overflow-hidden border border-border bg-bg-card transition-colors hover:border-border-heavy"
                 >
-                  <div className="flex flex-col gap-[4px]">
-                    <h3 className="font-heading font-bold text-card text-text-primary group-hover:text-accent-gold transition-colors">
-                      {p.title}
-                    </h3>
-                    <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-                      {p.role}
-                    </span>
-                    <span className="font-body text-caption text-text-tertiary">
-                      {p.meta}{p.date ? ` · ${p.date}` : ''}
-                    </span>
-                  </div>
-                  <ul className="flex flex-col gap-[var(--tight-gap)]">
-                    {p.bullets.map((b, i) => (
-                      <li key={i} className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
+                  {/* Phase 3D: 共享元素过渡 - 与 Work 页使用相同的 layoutId */}
+                  <motion.div
+                    layoutId={`project-card-${p.id}`}
+                    className="relative aspect-[16/10] bg-bg-card-darker overflow-hidden"
+                    transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+                  >
+                    {/* 背景图片 */}
+                    {p.heroImage ? (
+                      <motion.img
+                        layoutId={`project-image-${p.id}`}
+                        src={p.heroImage}
+                        alt={p.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-text-tertiary">
+                          Image Coming Soon
+                        </span>
+                      </div>
+                    )}
+
+                    {/* 默认显示层：标题 + 副标题（底部，半透明背景） */}
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg-primary/90 via-bg-primary/70 to-transparent p-[24px] pt-[48px]">
+                      <h3 className="font-heading font-bold text-card text-text-primary mb-[4px]">
+                        {p.title}
+                      </h3>
+                      <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold block mb-[2px]">
+                        {p.scope.resume.role}
+                      </span>
+                      <span className="font-body text-caption text-text-tertiary">
+                        {p.scope.resume.meta}{p.scope.resume.date ? ` · ${p.scope.resume.date}` : ''}
+                      </span>
+                    </div>
+
+                    {/* Hover 显示层：详细介绍（全覆盖，强模糊背景） */}
+                    <div className="absolute inset-0 bg-bg-primary/85 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center p-[32px] text-center">
+                      <h3 className="font-heading font-bold text-card text-text-primary mb-[4px]">
+                        {p.title}
+                      </h3>
+                      <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold block mb-[2px]">
+                        {p.scope.resume.role}
+                      </span>
+                      <span className="font-body text-caption text-text-tertiary block mb-[var(--item-gap)]">
+                        {p.scope.resume.meta}{p.scope.resume.date ? ` · ${p.scope.resume.date}` : ''}
+                      </span>
+                      <ul className="flex flex-col gap-[var(--tight-gap)]">
+                        {p.scope.resume.bullets.map((b, i) => (
+                          <li key={i} className="font-body text-body text-text-secondary leading-[var(--line-height-normal)]">
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
                 </Link>
               ))}
             </div>
