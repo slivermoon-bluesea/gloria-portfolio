@@ -82,7 +82,7 @@ function Resume() {
               Based in Canada · Canadian PGWP valid through 2028
             </p>
             <a
-              href="/Gloria_Tang_Resume.docx.pdf"
+              href="/Gloria_Tang_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-[var(--tight-gap)] inline-flex w-fit items-center gap-[var(--tight-gap)] rounded-[var(--radius-small)] border border-accent-gold px-[24px] py-[12px] font-body text-body font-medium uppercase tracking-[var(--letter-spacing-normal)] text-accent-gold hover:bg-accent-gold hover:text-bg-primary transition-colors"
