@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 function Hero() {
   return (
     <motion.section
-      layoutId="project-card-echoes-of-jiangnan"
+      layoutId="project-card-teyata"
       className="relative w-full bg-bg-card-darker overflow-hidden mb-[var(--container-padding-y)]"
       style={{ height: 'var(--hero-height)' }}
       transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
@@ -11,15 +11,12 @@ function Hero() {
       {/* Hero Image - Full bleed */}
       <div className="absolute inset-0">
         <motion.img
-          layoutId="project-image-echoes-of-jiangnan"
-          src="/images/cl-interior/hero.webp"
-          alt="Echoes of Jiangnan - Abandoned tea room interior"
+          layoutId="project-image-teyata"
+          src="/images/teyata/00_village_cover.webp"
+          alt="Teyata - Huron-Wendat village environment"
           className="w-full h-full object-cover"
-          style={{ objectPosition: '40% center' }}
+          style={{ objectPosition: 'center' }}
           transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
-          onError={(e) => {
-            e.target.src = 'https://placehold.co/1440x617/1a1a1a/666?text=Hero+Image'
-          }}
         />
       </div>
 
@@ -39,17 +36,17 @@ function Hero() {
           <div className="flex flex-col gap-[var(--text-gap)]">
             {/* Kicker */}
             <p className="font-body font-semibold uppercase text-body tracking-[var(--letter-spacing-wide)] text-accent-gold">
-              — UNREAL ENGINE 5 · 2026
+              — UNREAL ENGINE 5 · M.DM THESIS · 2024-2025
             </p>
 
             {/* Title */}
             <h1 className="font-heading font-bold text-hero leading-[var(--line-height-tight)] text-text-primary">
-              Echoes of <span className="italic text-accent-gold">Jiangnan</span>
+              Teyata
             </h1>
 
-            {/* Subtitle - No wrapping */}
-            <p className="font-body font-normal text-subtitle text-text-secondary whitespace-nowrap">
-              Abandoned Jiangnan Interior · Environment Storytelling & Decay
+            {/* Subtitle */}
+            <p className="font-body font-normal text-subtitle text-text-secondary">
+              Sole Environment Artist · Terrain, Waterways &amp; Vegetation for a Narrative RPG
             </p>
           </div>
         </div>
