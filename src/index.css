@@ -27,12 +27,12 @@
   --font-body: 'Inter', sans-serif;
 
   /* Text sizes - Tailwind v4 namespace */
-  --text-hero: 56px;
-  --text-section: 40px;
-  --text-card: 32px;
-  --text-subtitle: 18px;
-  --text-body: 13px;
-  --text-caption: 11px;
+  --text-hero: 72px;
+  --text-section: 48px;
+  --text-card: 40px;
+  --text-subtitle: 24px;
+  --text-body: 16px;
+  --text-caption: 14px;
 
   --font-weight-bold: 700;
   --font-weight-semibold: 600;
@@ -46,23 +46,23 @@
 
   /* === Spacing === */
   --container-max-width: 1440px;
-  --container-padding-x: 72px;
-  --container-padding-y: 36px;
-  --section-gap: 32px;
-  --card-gap: 24px;
-  --content-gap: 20px;
-  --item-gap: 16px;
-  --text-gap: 12px;
-  --tight-gap: 8px;
+  --container-padding-x: 96px;
+  --container-padding-y: 48px;
+  --section-gap: 48px;
+  --card-gap: 32px;
+  --content-gap: 24px;
+  --item-gap: 20px;
+  --text-gap: 16px;
+  --tight-gap: 12px;
 
   /* === Borders === */
-  --radius-card: 16px;
-  --radius-small: 12px;
-  --radius-mini: 8px;
+  --radius-card: 20px;
+  --radius-small: 16px;
+  --radius-mini: 12px;
   --border-width: 1px;
 
   /* === Layout === */
-  --nav-height: 88px;
+  --nav-height: 120px;
   --hero-height: 617px;
 }
 

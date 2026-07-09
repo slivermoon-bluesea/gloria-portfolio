@@ -32,7 +32,7 @@ function SceneConstruction() {
           <span className="absolute bottom-3 font-body font-normal text-caption uppercase pointer-events-none" style={{ right: '58%', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.15em' }}>
             FINAL
           </span>
-          <span className="absolute bottom-3 font-body font-normal text-caption uppercase pointer-events-none" style={{ right: '31%', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.15em' }}>
+          <span className="absolute bottom-3 font-body font-normal text-caption uppercase pointer-events-none" style={{ right: '28%', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.15em' }}>
             SET DRESS
           </span>
           <span className="absolute bottom-3 right-3 font-body font-normal text-caption uppercase pointer-events-none" style={{ color: 'rgba(255,255,255,0.7)', letterSpacing: '0.15em' }}>

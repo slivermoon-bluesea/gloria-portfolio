@@ -5,7 +5,7 @@ import Footer from '../components/Footer'
 import { projects } from '../data/projects'
 
 function Work() {
-  // Phase 1A: 只显示 online: true 的项目（Echoes of Jiangnan + Teyata）
+  // 只显示 online: true 的项目
   const visibleProjects = projects.filter(p => p.online)
 
   return (
@@ -16,10 +16,10 @@ function Work() {
         <div className="max-w-[var(--container-max-width)] mx-auto px-[var(--container-padding-x)]">
 
           <h1 className="font-heading font-bold text-hero text-text-primary mb-[var(--section-gap)]">
-            Work
+            Gloria's Portfolio
           </h1>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--card-gap)]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[var(--card-gap)] max-w-[1200px] mx-auto">
             {visibleProjects.map((project) => (
               <Link
                 key={project.id}
@@ -29,7 +29,7 @@ function Work() {
                 {/* Phase 3D: 共享元素过渡 - layoutId 用于 morph 动画 */}
                 <motion.div
                   layoutId={`project-card-${project.id}`}
-                  className="relative aspect-[16/10] bg-bg-card-darker overflow-hidden"
+                  className="relative aspect-[4/3] bg-bg-card-darker overflow-hidden"
                   transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
                 >
                   {project.heroImage ? (
@@ -48,17 +48,20 @@ function Work() {
                       </span>
                     </div>
                   )}
-
-                  {/* 标题层：底部，渐变背景 */}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg-primary/90 via-bg-primary/70 to-transparent p-[24px] pt-[48px]">
-                    <h2 className="font-heading font-bold text-card text-text-primary mb-[4px]">
-                      {project.title}
-                    </h2>
-                    <span className="font-body text-caption uppercase tracking-[var(--letter-spacing-wide)] text-accent-gold">
-                      {project.scope.work}
-                    </span>
-                  </div>
                 </motion.div>
+
+                {/* 文字信息区域：图片下方 */}
+                <div className="p-[24px] flex flex-col gap-[var(--tight-gap)]">
+                  <p className="font-body text-caption uppercase tracking-[var(--letter-spacing-normal)] text-text-tertiary">
+                    {project.scope.work}
+                  </p>
+                  <h2 className="font-heading font-bold text-card text-text-primary group-hover:text-accent-gold transition-colors">
+                    {project.title}
+                  </h2>
+                  <p className="font-body text-body text-text-secondary">
+                    {project.blurb}
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
