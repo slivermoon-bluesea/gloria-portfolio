@@ -27,10 +27,10 @@ function Footer() {
 
         {/* Email */}
         <a
-          href="mailto:gloriatang1202@gmail.com"
+          href="mailto:gloria.t1202@icloud.com"
           className="font-body text-subtitle text-text-secondary hover:text-accent-gold transition-colors"
         >
-          gloriatang1202@gmail.com
+          gloria.t1202@icloud.com
         </a>
 
         {/* Links row */}
